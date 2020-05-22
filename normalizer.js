@@ -8,19 +8,19 @@ var app = express();
 var jsonParser = bodyParser.json();
  
 app.post('/normalizer', jsonParser, function (req, res) {
-    console.log(req.body);
-    const { countryCode, number } = req.body;
-    let data = [];
+    console.log(req);
+    const data = req.body;
+    let result = { phone: [] };
     try {
-        for (let i = 0; i < countryCode.length; i++) { 
-            const phoneNo = parseNumber.parsePhoneNumberFromString(number[i], countryCode[i]);
+        result = data.map(el => {
+            const phoneNo = parseNumber.parsePhoneNumberFromString(el.telephone, el.countryCode);
             if (phoneNo && phoneNo.isValid()) {
                 data.push(phoneNo.number);
             }
             else {
                 data.push('Invalid phone number');
             }
-        }  
+        })
     }
     catch(e) {console.log(e)};
     res.send(data);
