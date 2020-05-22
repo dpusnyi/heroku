@@ -11,7 +11,7 @@ app.post('/normalizer', jsonParser, function (req, res) {
     const data = req.body;
     try {
         for (let i = 0; i < data.length; i++) {
-            if (!data[i].telephone || !data[i].countryCode) { data[i].phone = "Invalid Phone" }
+            if (!data[i].telephone || !data[i].countryCode) { data[i].telephone = "Invalid Phone" }
             else {
                 data[i].telephone = data[i].telephone.replace(/[^0-9]/gim,'');
                 const number = parseNumber.parsePhoneNumberFromString(data[i].telephone, data[i].countryCode);
