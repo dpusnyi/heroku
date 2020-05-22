@@ -8,21 +8,23 @@ var app = express();
 var jsonParser = bodyParser.json();
  
 app.post('/normalizer', jsonParser, function (req, res) {
-    console.log(req);
+    console.log(req.body);
     const data = req.body;
-    let result = { phone: [] };
+    let result = [];
     try {
-        result = data.map(el => {
-            if (!el.telephone) { return 'Invalid number' };
-            const number = parseNumber.parsePhoneNumberFromString(toString(el.telephone), toString(el.countryCode));
-            if (number.isValid) { return number.number }
-            else { return 'Invalid number' };
-        })
+        for (let i = 0; i < data.length; i++) {
+            console.log(data[i]);
+            if (!data[i].telephone) { result.push('Invalid number') };
+            const number = parseNumber.parsePhoneNumberFromString(toString(data[i].telephone), toString(data[i].countryCode));
+            if (number.isValid) { result.push(number.number); }
+            else { result.push('Invalid number') };
+        }
+        console.log(result);
     }
     catch(e) {console.log(e)};
     res.send(result);
 })
  
-app.listen(port, function() {
+app.listen(3000, function() {
     console.log(port);
 });
