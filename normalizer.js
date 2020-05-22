@@ -8,7 +8,6 @@ var app = express();
 var jsonParser = bodyParser.json();
  
 app.post('/normalizer', jsonParser, function (req, res) {
-    console.log(req.body);
     const data = req.body;
     try {
         for (let i = 0; i < data.length; i++) {
@@ -16,7 +15,7 @@ app.post('/normalizer', jsonParser, function (req, res) {
             else {
                 data[i].telephone = data[i].telephone.replace(/[^0-9]/gim,'');
                 const number = parseNumber.parsePhoneNumberFromString(data[i].telephone, data[i].countryCode);
-                if (number && number.isValid()) { data[i].telephone = number.number.formatInternational(); }
+                if (number && number.isValid()) { data[i].telephone = number.number; }
                 else { data[i].telephone = "Invalid Phone" };
             }
         }
