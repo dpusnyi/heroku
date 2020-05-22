@@ -22,6 +22,4 @@ app.post('/normalizer', jsonParser, function (req, res) {
     res.send(data);
 })
  
-app.listen(3000, function(){
-    console.log("Сервер ожидает подключения...");
-});
+app.listen(3000);
