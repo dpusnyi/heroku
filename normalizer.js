@@ -15,7 +15,7 @@ app.post('/normalizer', jsonParser, function (req, res) {
         for (let i = 0; i < data.length; i++) {
             console.log(data[i]);
             if (!data[i].telephone || !data[i].countryCode) { result.push('Invalid number'); continue; }
-            else {data[i] = data[i].replace(/[^0-9]/gim,'')}
+            else {data[i].telephone = data[i].telephone.replace(/[^0-9]/gim,'')}
             const number = parseNumber.parsePhoneNumberFromString(data[i].telephone, data[i].countryCode);
             if (number && number.isValid()) { result.push(number.number); }
             else { result.push('Invalid number') };
