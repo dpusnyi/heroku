@@ -2,6 +2,7 @@ var express = require('express');
 var app = express();
 var bodyParser = require("body-parser");
 const parseNumber = require('libphonenumber-js');
+const port = process.env.PORT;
 
 var app = express();
 var jsonParser = bodyParser.json();
@@ -25,4 +26,6 @@ app.post('/normalizer', jsonParser, function (req, res) {
     res.send(data);
 })
  
-app.listen(3000);
+app.listen(port, function() {
+    console.log(port);
+});
