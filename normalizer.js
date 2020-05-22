@@ -25,6 +25,6 @@ app.post('/normalizer', jsonParser, function (req, res) {
     res.send(result);
 })
  
-app.listen(3000, function() {
+app.listen(port, function() {
     console.log(port);
 });
