@@ -23,7 +23,7 @@ app.post('/normalizer', jsonParser, function (req, res) {
         console.log(result);
     }
     catch(e) {console.log(e)};
-    res.send(result);
+    res.send(JSON.stringify(result));
 })
  
 app.listen(port, function() {
