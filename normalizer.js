@@ -10,15 +10,16 @@ var jsonParser = bodyParser.json();
 app.post('/normalizer', jsonParser, function (req, res) {
     console.log(req.body);
     const data = req.body;
-    let result = [];
+    let result = {};
     try {
         for (let i = 0; i < data.length; i++) {
             console.log(data[i]);
-            if (!data[i].telephone || !data[i].countryCode) { result.push('Invalid number'); continue; }
+            let obj = {};
+            if (!data[i].telephone || !data[i].countryCode) { obj.phone = "Invalid Phone" }
             else {data[i].telephone = data[i].telephone.replace(/[^0-9]/gim,'')}
             const number = parseNumber.parsePhoneNumberFromString(data[i].telephone, data[i].countryCode);
-            if (number && number.isValid()) { result.push(number.number); }
-            else { result.push('Invalid number') };
+            if (number && number.isValid()) { obj.phone = number.number; }
+            else { obj.phone = "Invalid Phone" };
         }
         console.log(result);
     }
