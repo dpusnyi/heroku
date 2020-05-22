@@ -1,27 +1,27 @@
 var express = require('express');
 var app = express();
-const parsePhoneNumberFromString = require('libphonenumber-js');
+var bodyParser = require("body-parser");
+const parseNumber = require('libphonenumber-js');
+
+var app = express();
+var jsonParser = bodyParser.json();
  
-app.get('/normalizer', function (req, res) {
-    const { countryCode, number } = req;
+app.post('/normalizer', jsonParser, function (req, res) {
+    console.log(req.body);
+    const { countryCode, number } = req.body;
     let data = [];
     for (let i = 0; i < countryCode.length; i++) { 
-        const phoneNo = parsePhoneNumberFromString(number[i], countryCode[i]);
+        const phoneNo = parseNumber.parsePhoneNumberFromString(number[i], countryCode[i]);
         if (phoneNo && phoneNo.isValid()) {
-            res.push(phoneNo);
+            data.push(phoneNo.number);
         }
         else {
             data.push('Invalid phone number');
         }
     }
-    res.end(data);
+    res.send(data);
 })
  
-var server = app.listen(8081, function () {
- 
-  var host = server.address().address
-  var port = server.address().port
- 
-  console.log("Example app listening at http://%s:%s", host, port)
- 
-})
+app.listen(3000, function(){
+    console.log("Сервер ожидает подключения...");
+});
