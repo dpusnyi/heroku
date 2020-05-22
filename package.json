@@ -1,0 +1,14 @@
+{
+  "name": "normalizer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "normalizer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "libphonenumber-js": "^1.7.51"
+  }
+}
