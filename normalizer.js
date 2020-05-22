@@ -10,7 +10,7 @@ var jsonParser = bodyParser.json();
 app.post('/normalizer', jsonParser, function (req, res) {
     console.log(req.body);
     const data = req.body;
-    let result = {};
+    let result = [];
     try {
         for (let i = 0; i < data.length; i++) {
             console.log(data[i]);
@@ -20,6 +20,7 @@ app.post('/normalizer', jsonParser, function (req, res) {
             const number = parseNumber.parsePhoneNumberFromString(data[i].telephone, data[i].countryCode);
             if (number && number.isValid()) { obj.phone = number.number; }
             else { obj.phone = "Invalid Phone" };
+            result.push(obj);
         }
         console.log(result);
     }
