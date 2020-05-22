@@ -13,7 +13,8 @@ app.post('/normalizer', jsonParser, function (req, res) {
     let result = { phone: [] };
     try {
         result = data.map(el => {
-            const phoneNo = parseNumber.parsePhoneNumberFromString(el.telephone, el.countryCode);
+
+            const phoneNo = parseNumber.parsePhoneNumberFromString(toString(el.telephone), toString(el.countryCode));
             if (phoneNo && phoneNo.isValid()) {
                 data.push(phoneNo.number);
             }
@@ -23,7 +24,7 @@ app.post('/normalizer', jsonParser, function (req, res) {
         })
     }
     catch(e) {console.log(e)};
-    res.send(data);
+    res.send(result);
 })
  
 app.listen(port, function() {
