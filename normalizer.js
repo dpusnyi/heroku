@@ -11,12 +11,12 @@ app.post('/normalizer', jsonParser, function (req, res) {
     const data = req.body;
     try {
         for (let i = 0; i < data.length; i++) {
-            if (!data[i].telephone || !data[i].countryCode) { data[i].telephone = "Invalid Phone" }
+            if (!data[i].telephone || !data[i].countryCode) { data[i].normalised = "Invalid Phone" }
             else {
-                data[i].telephone = data[i].telephone.replace(/[^0-9]/gim,'');
-                const number = parseNumber.parsePhoneNumberFromString(data[i].telephone, data[i].countryCode);
-                if (number && number.isValid()) { data[i].telephone = number.number; }
-                else { data[i].telephone = "Invalid Phone" };
+                data[i].normalised = data[i].telephone.replace(/[^0-9]/gim,'');
+                const number = parseNumber.parsePhoneNumberFromString(data[i].normalised, data[i].countryCode);
+                if (number && number.isValid()) { data[i].normalised = number.number; }
+                else { data[i].normalised = "Invalid Phone" };
             }
         }
         console.log(data);
