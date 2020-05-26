@@ -22,7 +22,7 @@ app.post('/normalizer', jsonParser, function (req, res) {
                 if (number && number.isValid()) {
                     data[i].normalised = number.number;
                     client.lookups.phoneNumbers(data[i].normalised)
-                        .fetch()
+                        .fetch({type: ['carrier']})
                         .then(phone_number => {if (phone_number.carrier.type === "mobile" && phone_number.carrier.name) data[i].carrier = "Type: " + phone_number.carrier.type + " Carrier: " + phone_number.carrier.name;});
                 }
                 else { data[i].normalised = "Invalid Phone" };
