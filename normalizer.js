@@ -23,7 +23,7 @@ app.post('/normalizer', jsonParser, async function (req, res) {
                     data[i].normalised = number.number;
                     await client.lookups.phoneNumbers(data[i].normalised)
                         .fetch({type: ['carrier']})
-                        .then(phone_number => {console.log(phone_number); if (phone_number.carrier.type === "mobile" && phone_number.carrier.name) data[i].carrier = "Type: " + phone_number.carrier.type + " Carrier: " + phone_number.carrier.name;});
+                        .then(phone_number => { if (phone_number.carrier.type === "mobile" && phone_number.carrier.name) data[i].carrier = "Type: " + phone_number.carrier.type + ", Carrier: " + phone_number.carrier.name;});
                 }
                 else { data[i].normalised = "Invalid Phone" };
             }
