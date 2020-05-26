@@ -2,10 +2,10 @@ var express = require('express');
 var app = express();
 var bodyParser = require("body-parser");
 const parseNumber = require('libphonenumber-js');
-const accountSid = 'AC8cb8e1d5b9cbe3cb3c48fe2ab8803597';
-const authToken = '6fffebd4e1b8e2abf4ee020fd46ca08c';
-const client = require('twilio')(accountSid, authToken);
+const accountSid = process.env.ACCOUNTSID;
+const authToken = process.env.AUTHTOKEN;
 const port = process.env.PORT;
+const client = require('twilio')(accountSid, authToken);
 
 var app = express();
 var jsonParser = bodyParser.json();
