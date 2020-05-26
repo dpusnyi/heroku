@@ -10,7 +10,7 @@ const port = process.env.PORT;
 var app = express();
 var jsonParser = bodyParser.json();
  
-app.post('/normalizer', jsonParser, function (req, res) {
+app.post('/normalizer', jsonParser, async function (req, res) {
     const data = req.body;
     try {
         for (let i = 0; i < data.length; i++) {
@@ -21,7 +21,7 @@ app.post('/normalizer', jsonParser, function (req, res) {
                 const number = parseNumber.parsePhoneNumberFromString(data[i].normalised, data[i].countryCode);
                 if (number && number.isValid()) {
                     data[i].normalised = number.number;
-                    client.lookups.phoneNumbers(data[i].normalised)
+                    await client.lookups.phoneNumbers(data[i].normalised)
                         .fetch({type: ['carrier']})
                         .then(phone_number => {console.log(phone_number); if (phone_number.carrier.type === "mobile" && phone_number.carrier.name) data[i].carrier = "Type: " + phone_number.carrier.type + " Carrier: " + phone_number.carrier.name;});
                 }
